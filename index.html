@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShipGuard — Test Runs</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-inner">
+        <div class="logo">
+          <span class="logo-icon">⚓</span>
+          <span class="logo-text">ShipGuard</span>
+        </div>
+        <span class="header-tagline">Visual QA Testing Platform</span>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+      <div class="page-title-row">
+        <h1 class="page-title">Test Runs</h1>
+        <span id="result-count" class="result-count"></span>
+      </div>
+
+      <!-- Filter Bar -->
+      <section class="filter-bar" id="filter-bar">
+        <!-- Global search -->
+        <div class="global-search-wrap">
+          <span class="search-icon">🔍</span>
+          <input
+            id="global-search"
+            class="global-search"
+            type="text"
+            placeholder="Search by name or URL…"
+            autocomplete="off"
+          />
+        </div>
+
+        <!-- Multiselect filters rendered by JS -->
+        <div id="filter-groups" class="filter-groups"></div>
+
+        <!-- Active filter chips -->
+        <div id="active-chips" class="active-chips"></div>
+
+        <!-- Clear all -->
+        <button id="clear-all-btn" class="clear-all-btn hidden">Clear all</button>
+      </section>
+
+      <!-- Table -->
+      <div class="table-wrap">
+        <table class="data-table" id="data-table">
+          <thead>
+            <tr id="table-head-row"></tr>
+          </thead>
+          <tbody id="table-body"></tbody>
+        </table>
+
+        <!-- Empty state -->
+        <div id="empty-state" class="empty-state hidden">
+          <div class="empty-icon">🔭</div>
+          <p class="empty-title">No runs match your filters</p>
+          <p class="empty-sub">Try adjusting or clearing your active filters.</p>
+          <button class="clear-all-btn" id="empty-clear-btn">Clear all filters</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
