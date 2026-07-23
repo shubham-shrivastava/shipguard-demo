@@ -446,7 +446,6 @@ function init() {
   // Global search
   document.getElementById("global-search").addEventListener("input", (e) => {
     filters.search = e.target.value;
-    render();
   });
 
   // Clear all button
