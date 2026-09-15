@@ -302,7 +302,7 @@ function openDropdownFor(key) {
   // Close when focus leaves the menu. A screen-reader user who tabs past the
   // last option would otherwise be left with an open menu behind them.
   // Escape and outside-click already close it; this covers keyboard focus.
-  dd.addEventListener("focusout", (e) => {
+  wrap.addEventListener("focusout", (e) => {
     if (!wrap.contains(e.relatedTarget)) closeAllDropdowns();
   });
 
