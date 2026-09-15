@@ -1,7 +1,10 @@
 name: ShipGuarde
 
+# Manual while the ShipGuarde GitHub App reviews this repo's pull requests;
+# the App and this Action would otherwise each run on every PR. Switch back
+# to `pull_request:` for the Action-only path.
 on:
-  pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read
