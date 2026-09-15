@@ -421,7 +421,7 @@ body {
 .badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
 .badge-passed    { background: var(--status-passed-bg);    color: var(--status-passed-fg);    border: 1px solid var(--status-passed-border); }
 .badge-passed::before { background: var(--status-passed-fg); }
-.badge-failed    { background: var(--status-failed-bg);    color: var(--status-failed-bg);    border: 1px solid var(--status-failed-border); }
+.badge-failed    { background: var(--status-failed-bg);    color: var(--status-failed-fg);    border: 1px solid var(--status-failed-border); }
 .badge-failed::before { background: var(--status-failed-fg); }
 .badge-running   { background: var(--status-running-bg);   color: var(--status-running-fg);   border: 1px solid var(--status-running-border); }
 .badge-running::before { background: var(--status-running-fg); animation: pulse 1.2s infinite; }
