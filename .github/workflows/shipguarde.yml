@@ -1,0 +1,33 @@
+name: ShipGuarde
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: write
+  checks: write
+
+jobs:
+  review:
+    name: ShipGuarde review
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for the Railway preview
+        run: |
+          url="https://shipguard-demo-shipguard-demo-pr-${{ github.event.number }}.up.railway.app/"
+          for i in $(seq 1 40); do
+            curl -sf -o /dev/null "$url" && exit 0
+            sleep 15
+          done
+          echo "preview never came up: $url" && exit 1
+
+      - id: shipguarde
+        uses: ShipGuarde/review-action@v1
+        with:
+          api-key: ${{ secrets.SHIPGUARDE_API_KEY }}
+          project-id: cmrxda2bp001xnq0vg287eqba
+          target-url: https://shipguard-demo-shipguard-demo-pr-${{ github.event.number }}.up.railway.app/
+          fail-on: block
+
+      - run: echo "verdict ${{ steps.shipguarde.outputs.verdict }} run ${{ steps.shipguarde.outputs.run-id }}"
