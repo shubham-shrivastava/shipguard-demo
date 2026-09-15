@@ -111,9 +111,8 @@ function renderSteps(row) {
 }
 
 function renderDate(row) {
-  const d = new Date(row.updatedAt);
-  const rel = timeAgo(d);
-  return `<td class="cell-date" title="${d.toLocaleString()}">${rel}</td>`;
+  const dt = luxon.DateTime.fromISO(row.updatedAt);
+  return `<td class="cell-date" title="${dt.toLocaleString(luxon.DateTime.DATETIME_MED)}">${dt.toRelative()}</td>`;
 }
 
 // ── 5. DATA PIPELINE ──────────────────────────────────────────────────────────
@@ -446,17 +445,6 @@ function esc(str) {
 function capitalize(str) {
   if (!str) return str;
   return str.charAt(0).toUpperCase() + str.slice(1);
-}
-
-function timeAgo(date) {
-  const secs = Math.floor((Date.now() - date) / 1000);
-  if (secs < 60)   return "just now";
-  if (secs < 3600) return `${Math.floor(secs / 60)}m ago`;
-  if (secs < 86400) return `${Math.floor(secs / 3600)}h ago`;
-  const days = Math.floor(secs / 86400);
-  if (days === 1) return "yesterday";
-  if (days < 7)   return `${days}d ago`;
-  return date.toLocaleDateString();
 }
 
 // ── BOOT ──────────────────────────────────────────────────────────────────────

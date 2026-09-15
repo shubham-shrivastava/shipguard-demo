@@ -4,6 +4,7 @@ const browserGlobals = {
   window: "readonly", document: "readonly", globalThis: "readonly",
   setTimeout: "readonly", clearTimeout: "readonly", requestAnimationFrame: "readonly",
   ShipGuardFilters: "readonly",
+  luxon: "readonly",
 };
 const nodeGlobals = {
   require: "readonly", module: "writable", process: "readonly", __dirname: "readonly", console: "readonly",
