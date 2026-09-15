@@ -28,6 +28,10 @@ jobs:
           api-key: ${{ secrets.SHIPGUARDE_API_KEY }}
           project-id: cmrxda2bp001xnq0vg287eqba
           target-url: https://shipguard-demo-shipguard-demo-pr-${{ github.event.number }}.up.railway.app/
+          flow: >-
+            Click the button labelled "Status" in the filter bar. In the menu that
+            opens, click the option labelled "Failed". Confirm the table shows only
+            rows with a Failed badge and the count reads "5 of 20 runs".
           fail-on: block
 
       - run: echo "verdict ${{ steps.shipguarde.outputs.verdict }} run ${{ steps.shipguarde.outputs.run-id }}"
