@@ -129,6 +129,8 @@ body {
   flex-wrap: wrap;
   align-items: flex-start;
   gap: 12px;
+  /* Typing in search re-renders the table; keep those repaints out of the bar. */
+  contain: paint;
 }
 
 /* Global search */
