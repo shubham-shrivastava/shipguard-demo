@@ -119,41 +119,12 @@ function renderDate(row) {
 // ── 5. DATA PIPELINE ──────────────────────────────────────────────────────────
 
 function getFilteredSorted() {
-  let rows = MOCK_DATA;
-
-  // Filter by each active group
-  for (const { key } of FILTER_CONFIG) {
-    if (filters[key].length > 0) {
-      rows = rows.filter((r) => filters[key].includes(r[key]));
-    }
-  }
-
-  // Global search over name + url
-  if (filters.search.trim()) {
-    const q = filters.search.toLowerCase();
-    rows = rows.filter(
-      (r) =>
-        r.name.toLowerCase().includes(q) ||
-        r.url.toLowerCase().includes(q)
-    );
-  }
-
-  // Sort
-  rows = [...rows].sort((a, b) => {
-    let av = a[sortState.key];
-    let bv = b[sortState.key];
-    if (sortState.key === "updatedAt") {
-      av = new Date(av);
-      bv = new Date(bv);
-    }
-    if (typeof av === "string") av = av.toLowerCase();
-    if (typeof bv === "string") bv = bv.toLowerCase();
-    if (av < bv) return sortState.direction === "asc" ? -1 : 1;
-    if (av > bv) return sortState.direction === "asc" ? 1 : -1;
-    return 0;
-  });
-
-  return rows;
+  return ShipGuardFilters.applyFilters(
+    MOCK_DATA,
+    filters,
+    sortState,
+    FILTER_CONFIG.map((cfg) => cfg.key)
+  );
 }
 
 // ── 6. RENDER TABLE ───────────────────────────────────────────────────────────
