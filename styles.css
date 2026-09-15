@@ -227,6 +227,7 @@ body {
 .ms-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
 .ms-option {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 9px;
@@ -237,14 +238,35 @@ body {
 }
 .ms-option:hover { background: var(--surface2); }
 .ms-option.selected { color: var(--accent); }
-
+/* The native checkbox stays in the DOM for keyboard and assistive tech;
+   the box the eye sees is drawn by ::before so it matches the theme. */
 .ms-option input[type="checkbox"] {
-  accent-color: var(--accent);
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  pointer-events: none;
+}
+.ms-option::before {
+  content: '';
+  flex-shrink: 0;
   width: 14px;
   height: 14px;
-  cursor: pointer;
-  flex-shrink: 0;
+  border-radius: 3px;
+  border: 1px solid var(--border-hover);
+  background: var(--surface2);
+  transition: background var(--transition), border-color var(--transition);
 }
+.ms-option.selected::before {
+  background: var(--accent);
+  border-color: var(--accent);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'><path d='M3 7.5l2.5 2.5L11 4.5' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  background-size: 12px 12px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.ms-option:focus-within::before { outline: 2px solid var(--accent); outline-offset: 1px; }
 
 .ms-no-results {
   padding: 12px;
