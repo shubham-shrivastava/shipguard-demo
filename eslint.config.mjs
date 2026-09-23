@@ -8,6 +8,12 @@ const browserGlobals = {
 };
 const nodeGlobals = {
   require: "readonly", module: "writable", process: "readonly", __dirname: "readonly", console: "readonly",
+  setTimeout: "readonly", fetch: "readonly",
+};
+const quotePageGlobals = {
+  ...browserGlobals,
+  QuoteLogic: "readonly", fetch: "readonly", location: "readonly", history: "readonly",
+  sessionStorage: "readonly", URLSearchParams: "readonly", AbortController: "readonly", Intl: "readonly",
 };
 
 export default [
@@ -22,7 +28,15 @@ export default [
     languageOptions: { sourceType: "script", globals: { ...browserGlobals, module: "readonly" } },
   },
   {
-    files: ["server.js", "test/**/*.js"],
+    files: ["quote-logic.js"],
+    languageOptions: { sourceType: "script", globals: { ...browserGlobals, module: "readonly" } },
+  },
+  {
+    files: ["quote.js"],
+    languageOptions: { sourceType: "script", globals: quotePageGlobals },
+  },
+  {
+    files: ["server.js", "quote-api.js", "quote-data.js", "test/**/*.js"],
     languageOptions: { sourceType: "commonjs", globals: nodeGlobals },
   },
 ];
