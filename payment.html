@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout — ShipGuarde Demo</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="gauntlet.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div class="header-inner">
+        <div class="logo">
+          <span class="logo-icon">⚓</span>
+          <span class="logo-text">ShipGuarde</span>
+        </div>
+        <span class="header-tagline">Secure checkout</span>
+      </div>
+    </header>
+    <nav class="site-nav" aria-label="Demo pages">
+      <div class="site-nav-inner">
+        <a href="/">Test Runs</a>
+        <a href="/quote">Quote Form</a>
+        <a href="/approvals">Approvals</a>
+        <a href="/legacy">Vendor Master</a>
+        <a href="/grid">Orders</a>
+        <a href="/wizard">Travel Request</a>
+        <a href="/payment" class="active">Checkout</a>
+      </div>
+    </nav>
+
+    <main class="main">
+      <div class="page-title-row">
+        <h1 class="page-title">Checkout</h1>
+      </div>
+
+      <div class="pay-layout" id="pay-layout">
+        <div>
+          <section class="g-card">
+            <h2>Contact</h2>
+            <div class="g-row">
+              <div class="g-field">
+                <label for="buyer-name">Full name</label>
+                <input id="buyer-name" type="text" autocomplete="name" />
+                <div class="g-error" id="buyer-name-error"></div>
+              </div>
+              <div class="g-field">
+                <label for="buyer-email">Email</label>
+                <input id="buyer-email" type="email" autocomplete="email" />
+                <div class="g-error" id="buyer-email-error"></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="g-card">
+            <h2>Shipping address</h2>
+            <div class="g-field">
+              <label for="ship-line1">Address line 1</label>
+              <input id="ship-line1" type="text" autocomplete="address-line1" />
+              <div class="g-error" id="ship-line1-error"></div>
+            </div>
+            <div class="g-row">
+              <div class="g-field">
+                <label for="ship-city">City</label>
+                <input id="ship-city" type="text" autocomplete="address-level2" />
+                <div class="g-error" id="ship-city-error"></div>
+              </div>
+              <div class="g-field">
+                <label for="ship-postcode">Postcode</label>
+                <input id="ship-postcode" type="text" inputmode="numeric" autocomplete="postal-code" />
+                <div class="g-error" id="ship-postcode-error"></div>
+              </div>
+            </div>
+            <div class="g-field">
+              <label id="ship-country-label">Country</label>
+              <country-select id="ship-country" aria-labelledby="ship-country-label"></country-select>
+              <div class="g-error" id="ship-country-error"></div>
+            </div>
+            <label class="g-check">
+              <input type="checkbox" id="billing-same" checked />
+              Billing address is the same as shipping
+            </label>
+          </section>
+
+          <section class="g-card hidden" id="billing-card">
+            <h2>Billing address</h2>
+            <div class="g-field">
+              <label for="bill-line1">Address line 1</label>
+              <input id="bill-line1" type="text" />
+              <div class="g-error" id="bill-line1-error"></div>
+            </div>
+            <div class="g-row">
+              <div class="g-field">
+                <label for="bill-city">City</label>
+                <input id="bill-city" type="text" />
+                <div class="g-error" id="bill-city-error"></div>
+              </div>
+              <div class="g-field">
+                <label id="bill-country-label">Country</label>
+                <country-select id="bill-country" aria-labelledby="bill-country-label"></country-select>
+                <div class="g-error" id="bill-country-error"></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="g-card">
+            <h2>Card details</h2>
+            <p class="g-sub">Card fields are handled in a secure frame. Use test card 4242 4242 4242 4242.</p>
+            <iframe class="card-frame" id="card-frame" src="/payment/frame" title="Card details"></iframe>
+          </section>
+        </div>
+
+        <aside>
+          <section class="g-card">
+            <h2>Order summary</h2>
+            <div class="pay-summary-line"><span>ShipGuarde Team, annual</span><span>₹19,999</span></div>
+            <div class="pay-summary-line"><span>Priority onboarding</span><span>₹5,000</span></div>
+            <div class="pay-summary-line"><span>GST (included)</span><span>₹3,813</span></div>
+            <div class="pay-summary-line total"><span>Total due today</span><span>₹24,999</span></div>
+            <p class="g-sub" id="pod-note">Pay on delivery is available in select regions for hardware only.</p>
+            <button class="g-btn g-btn-primary" id="pay-now" disabled>Pay ₹24,999</button>
+            <button class="g-btn" id="pay-later">Pay later</button>
+          </section>
+        </aside>
+      </div>
+
+      <section class="g-card hidden" id="pay-done">
+        <div class="pay-success">
+          <div class="big">🎉</div>
+          <h2>Payment received</h2>
+          <p class="g-sub">Receipt number</p>
+          <div class="receipt" id="receipt-no"></div>
+          <p class="g-sub" id="receipt-detail"></p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Pay later modal (decoy path, informational only) -->
+  <div class="g-modal-overlay hidden" id="later-overlay">
+    <div class="g-modal" role="dialog" aria-modal="true" aria-labelledby="later-title">
+      <h3 id="later-title">Pay later</h3>
+      <p>Invoicing with Net 30 terms is available on the Business plan. This order must be paid by card today.</p>
+      <div class="g-modal-actions">
+        <button class="g-btn g-btn-primary" id="later-close">Got it</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="country-select.js"></script>
+  <script src="payment.js"></script>
+</body>
+</html>

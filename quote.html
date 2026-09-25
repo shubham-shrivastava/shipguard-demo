@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Car insurance quote | ShipGuarde demo</title>
+  <meta name="description" content="Get a car insurance quote in four short steps: about you, your address, your vehicle and the cover you want." />
+  <link rel="canonical" href="/quote" />
+  <meta property="og:title" content="Car insurance quote | ShipGuarde demo" />
+  <meta property="og:description" content="Get a car insurance quote in four short steps: about you, your address, your vehicle and the cover you want." />
+  <meta property="og:image" content="/quote-og.png" />
+  <meta property="og:type" content="website" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="quote.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div class="header-inner">
+        <a class="logo quote-home" href="/">
+          <span class="logo-icon" aria-hidden="true">⚓</span>
+          <span class="logo-text">ShipGuarde</span>
+        </a>
+        <span class="header-tagline">Car insurance quote demo</span>
+      </div>
+    </header>
+
+    <main class="main quote-main">
+      <h1 class="page-title">Get a car insurance quote</h1>
+
+      <p id="quote-loading" class="quote-loading">Loading the quote form...</p>
+      <p id="quote-fatal" class="quote-fatal" role="alert" hidden></p>
+
+      <div id="quote-flow" hidden>
+        <nav class="progress" aria-label="Quote progress">
+          <ol id="progress-list">
+            <li data-progress="1"><span class="progress-num">1</span> <span class="progress-label">About you</span><span class="visually-hidden progress-state"></span></li>
+            <li data-progress="2"><span class="progress-num">2</span> <span class="progress-label">Address</span><span class="visually-hidden progress-state"></span></li>
+            <li data-progress="3"><span class="progress-num">3</span> <span class="progress-label">Vehicle</span><span class="visually-hidden progress-state"></span></li>
+            <li data-progress="4"><span class="progress-num">4</span> <span class="progress-label">Cover</span><span class="visually-hidden progress-state"></span></li>
+            <li data-progress="5"><span class="progress-num">5</span> <span class="progress-label">Review</span><span class="visually-hidden progress-state"></span></li>
+          </ol>
+        </nav>
+
+        <form id="quote-form" class="quote-card" novalidate>
+          <!-- Step 1: About you -->
+          <section class="step" data-step="1" aria-labelledby="step-1-title" hidden>
+            <h2 id="step-1-title" class="step-title" tabindex="-1">About you</h2>
+            <p class="step-count">Step 1 of 4</p>
+
+            <div class="field">
+              <label for="fullName">Full name</label>
+              <input id="fullName" name="fullName" type="text" autocomplete="name" maxlength="100" aria-describedby="fullName-error" />
+              <p id="fullName-error" class="field-error" aria-live="polite"></p>
+            </div>
+
+            <div class="field">
+              <label for="dob">Date of birth</label>
+              <p id="dob-hint" class="field-hint">You must be 18 or older.</p>
+              <input id="dob" name="dob" type="date" autocomplete="bday" aria-describedby="dob-hint dob-error" />
+              <p id="dob-error" class="field-error" aria-live="polite"></p>
+            </div>
+
+            <div class="field">
+              <label for="email">Email address</label>
+              <input id="email" name="email" type="email" autocomplete="email" inputmode="email" aria-describedby="email-error" />
+              <p id="email-error" class="field-error" aria-live="polite"></p>
+            </div>
+
+            <div class="field">
+              <label for="phone">Phone number</label>
+              <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" aria-describedby="phone-error" />
+              <p id="phone-error" class="field-error" aria-live="polite"></p>
+            </div>
+          </section>
+
+          <!-- Step 2: Address -->
+          <section class="step" data-step="2" aria-labelledby="step-2-title" hidden>
+            <h2 id="step-2-title" class="step-title" tabindex="-1">Address</h2>
+            <p class="step-count">Step 2 of 4</p>
+
+            <div class="field">
+              <label for="country">Country</label>
+              <select id="country" name="country" autocomplete="country" aria-describedby="country-error"></select>
+              <p id="country-error" class="field-error" aria-live="polite"></p>
+            </div>
+
+            <div class="field">
+              <label for="region">State or region</label>
+              <div class="select-row">
+                <select id="region" name="region" aria-describedby="region-error" disabled></select>
+                <button type="button" class="retry-btn" data-retry="region" hidden>Retry</button>
+              </div>
+              <p id="region-error" class="field-error" aria-live="polite"></p>
+            </div>
+
+            <div class="field">
+              <label for="city">City</label>
+              <div class="select-row">
+                <select id="city" name="city" aria-describedby="city-error" disabled></select>
+                <button type="button" class="retry-btn" data-retry="city" hidden>Retry</button>
+              </div>
+              <p id="city-error" class="field-error" aria-live="polite"></p>
+            </div>
+
+            <div class="field">
+              <label for="postcode">Postcode</label>
+              <p id="postcode-hint" class="field-hint">We check it against the country you chose.</p>
+              <input id="postcode" name="postcode" type="text" autocomplete="postal-code" maxlength="10" aria-describedby="postcode-hint postcode-status postcode-error" />
+              <p id="postcode-status" class="field-status" aria-live="polite"></p>
+              <p id="postcode-error" class="field-error" aria-live="polite"></p>
+            </div>
+          </section>
+
+          <!-- Step 3: Vehicle -->
+          <section class="step" data-step="3" aria-labelledby="step-3-title" hidden>
+            <h2 id="step-3-title" class="step-title" tabindex="-1">Vehicle</h2>
+            <p class="step-count">Step 3 of 4</p>
+
+            <div class="field">
+              <label for="make">Make</label>
+              <select id="make" name="make" aria-describedby="make-error"></select>
+              <p id="make-error" class="field-error" aria-live="polite"></p>
+            </div>
+
+            <div class="field">
+              <label for="model">Model</label>
+              <div class="select-row">
+                <select id="model" name="model" aria-describedby="model-error" disabled></select>
+                <button type="button" class="retry-btn" data-retry="model" hidden>Retry</button>
+              </div>
+              <p id="model-error" class="field-error" aria-live="polite"></p>
+            </div>
+
+            <div class="field">
+              <label for="year">Year of manufacture</label>
+              <select id="year" name="year" aria-describedby="year-error" disabled></select>
+              <p id="year-error" class="field-error" aria-live="polite"></p>
+            </div>
+
+            <fieldset class="field" id="usage-group">
+              <legend>How will the car be used?</legend>
+              <div class="choice-list">
+                <label class="choice"><input type="radio" name="usage" value="personal" aria-describedby="usage-error" /> Personal</label>
+                <label class="choice"><input type="radio" name="usage" value="commuting" aria-describedby="usage-error" /> Commuting</label>
+                <label class="choice"><input type="radio" name="usage" value="business" aria-describedby="usage-error" /> Business</label>
+              </div>
+              <p id="usage-error" class="field-error" aria-live="polite"></p>
+            </fieldset>
+
+            <div class="field" id="companyName-field" hidden>
+              <label for="companyName">Company name</label>
+              <input id="companyName" name="companyName" type="text" autocomplete="organization" maxlength="100" aria-describedby="companyName-error" />
+              <p id="companyName-error" class="field-error" aria-live="polite"></p>
+            </div>
+          </section>
+
+          <!-- Step 4: Cover -->
+          <section class="step" data-step="4" aria-labelledby="step-4-title" hidden>
+            <h2 id="step-4-title" class="step-title" tabindex="-1">Cover</h2>
+            <p class="step-count">Step 4 of 4</p>
+
+            <fieldset class="field" id="coverType-group">
+              <legend>Cover type</legend>
+              <div class="choice-list">
+                <label class="choice"><input type="radio" name="coverType" value="third_party" aria-describedby="coverType-error" /> Third party</label>
+                <label class="choice"><input type="radio" name="coverType" value="tpft" aria-describedby="coverType-error" /> Third party, fire and theft</label>
+                <label class="choice"><input type="radio" name="coverType" value="comprehensive" aria-describedby="coverType-error" /> Comprehensive</label>
+              </div>
+              <p id="coverType-error" class="field-error" aria-live="polite"></p>
+            </fieldset>
+
+            <fieldset class="field" id="addons-group" hidden>
+              <legend>Add-ons (optional)</legend>
+              <div class="choice-list">
+                <label class="choice" data-addon="legal"><input type="checkbox" name="addons" value="legal" aria-describedby="addons-note addons-error" /> Legal cover</label>
+                <label class="choice" data-addon="personal_accident"><input type="checkbox" name="addons" value="personal_accident" aria-describedby="addons-note addons-error" /> Personal accident cover</label>
+                <label class="choice" data-addon="breakdown"><input type="checkbox" name="addons" value="breakdown" aria-describedby="addons-note addons-error" /> Breakdown cover</label>
+                <label class="choice" data-addon="courtesy_car"><input type="checkbox" name="addons" value="courtesy_car" aria-describedby="addons-note addons-error" /> Courtesy car</label>
+              </div>
+              <p id="addons-note" class="field-hint" hidden>Breakdown cover and a courtesy car are only available with comprehensive cover.</p>
+              <p id="addons-error" class="field-error" aria-live="polite"></p>
+            </fieldset>
+
+            <div class="field">
+              <label for="excess">Voluntary excess</label>
+              <p id="excess-hint" class="field-hint">A higher excess lowers your price.</p>
+              <select id="excess" name="excess" aria-describedby="excess-hint excess-error"></select>
+              <p id="excess-error" class="field-error" aria-live="polite"></p>
+            </div>
+
+            <div class="premium" id="premium" aria-live="polite" aria-busy="false">
+              <p class="premium-label">Your price</p>
+              <p class="premium-value" id="premium-value">Choose a cover type to see your price.</p>
+              <ul class="premium-breakdown" id="premium-breakdown"></ul>
+            </div>
+          </section>
+
+          <!-- Step 5: Review -->
+          <section class="step" data-step="5" aria-labelledby="step-5-title" hidden>
+            <h2 id="step-5-title" class="step-title" tabindex="-1">Check your answers</h2>
+            <p class="step-count">Review before you submit.</p>
+            <div id="review"></div>
+            <p id="submit-error" class="field-error" role="alert"></p>
+          </section>
+
+          <div class="form-actions">
+            <button type="button" id="back-btn" class="btn btn-secondary">Back</button>
+            <button type="submit" id="next-btn" class="btn btn-primary">Next</button>
+          </div>
+        </form>
+
+        <section id="confirmation" class="quote-card confirmation" aria-labelledby="confirmation-title" hidden>
+          <h2 id="confirmation-title" class="step-title" tabindex="-1">Quote request received</h2>
+          <p>Your quote reference is <strong id="quote-reference"></strong>.</p>
+          <p id="confirmation-premium"></p>
+          <p class="field-hint">Keep this reference. You will need it if you contact us about this quote.</p>
+          <button type="button" id="new-quote-btn" class="btn btn-secondary">Start a new quote</button>
+        </section>
+      </div>
+
+      <div id="status" class="visually-hidden" role="status" aria-live="polite"></div>
+    </main>
+  </div>
+
+  <script src="quote-logic.js"></script>
+  <script src="quote.js"></script>
+</body>
+</html>

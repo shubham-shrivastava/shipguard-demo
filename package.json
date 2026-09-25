@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "lint": "eslint .",
-    "test": "node --test test/filters.test.js"
+    "test": "node --test test/filters.test.js test/quote-logic.test.js test/quote-api.test.js test/gauntlet.test.js"
   },
   "engines": {
     "node": ">=18"

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Travel Request — ShipGuarde Demo</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="gauntlet.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div class="header-inner">
+        <div class="logo">
+          <span class="logo-icon">⚓</span>
+          <span class="logo-text">ShipGuarde</span>
+        </div>
+        <span class="header-tagline">Corporate travel desk</span>
+      </div>
+    </header>
+    <nav class="site-nav" aria-label="Demo pages">
+      <div class="site-nav-inner">
+        <a href="/">Test Runs</a>
+        <a href="/quote">Quote Form</a>
+        <a href="/approvals">Approvals</a>
+        <a href="/legacy">Vendor Master</a>
+        <a href="/grid">Orders</a>
+        <a href="/wizard" class="active">Travel Request</a>
+        <a href="/payment">Checkout</a>
+      </div>
+    </nav>
+
+    <main class="main">
+      <div class="page-title-row">
+        <h1 class="page-title">Travel request</h1>
+      </div>
+
+      <div class="wiz-stepper" id="stepper">
+        <button type="button" class="wiz-step-pill" data-step="1">1 · Traveller</button>
+        <button type="button" class="wiz-step-pill" data-step="2">2 · Trip</button>
+        <button type="button" class="wiz-step-pill" data-step="3">3 · Policy</button>
+        <button type="button" class="wiz-step-pill" data-step="4">4 · Review</button>
+      </div>
+
+      <!-- Step 1: Traveller -->
+      <section class="g-card wiz-panel" id="step-1">
+        <h2>Traveller</h2>
+        <p class="g-sub">Your employee ID is verified against the directory.</p>
+        <div class="g-field">
+          <label for="employee-id">Employee ID</label>
+          <input id="employee-id" type="text" placeholder="e.g. E-10423" autocomplete="off" />
+          <div class="verify-status" id="employee-status"></div>
+        </div>
+        <div class="g-field">
+          <label for="department">Department</label>
+          <select id="department">
+            <option value="">Select a department</option>
+            <option>Engineering</option>
+            <option>Finance</option>
+            <option>Marketing</option>
+            <option>Operations</option>
+            <option>Sales</option>
+          </select>
+          <div class="g-error" id="department-error"></div>
+        </div>
+        <div class="g-field">
+          <label for="work-email">Work email</label>
+          <input id="work-email" type="email" placeholder="name@company.com" />
+          <div class="g-error" id="work-email-error"></div>
+        </div>
+        <div class="wiz-actions">
+          <span></span>
+          <button class="g-btn g-btn-primary" id="next-1">Next</button>
+        </div>
+      </section>
+
+      <!-- Step 2: Trip -->
+      <section class="g-card wiz-panel hidden" id="step-2">
+        <h2>Trip</h2>
+        <p class="g-sub">Return must be on or after departure.</p>
+        <div class="g-row">
+          <div class="g-field">
+            <label for="from-city">From</label>
+            <input id="from-city" type="text" list="cities" placeholder="City" />
+            <div class="g-error" id="from-city-error"></div>
+          </div>
+          <div class="g-field">
+            <label for="to-city">To</label>
+            <input id="to-city" type="text" list="cities" placeholder="City" />
+            <div class="g-error" id="to-city-error"></div>
+          </div>
+        </div>
+        <datalist id="cities">
+          <option>Bengaluru</option><option>Berlin</option><option>London</option>
+          <option>Mumbai</option><option>New York</option><option>Pune</option>
+          <option>Singapore</option><option>Tokyo</option>
+        </datalist>
+        <div class="g-row">
+          <div class="g-field">
+            <label for="depart-date">Departure</label>
+            <input id="depart-date" type="date" min="2026-09-26" />
+            <div class="g-error" id="depart-date-error"></div>
+          </div>
+          <div class="g-field">
+            <label for="return-date">Return</label>
+            <input id="return-date" type="date" min="2026-09-26" />
+            <div class="g-error" id="return-date-error"></div>
+          </div>
+        </div>
+        <div class="g-field">
+          <label>Purpose</label>
+          <label class="g-check"><input type="radio" name="purpose" value="Client visit" /> Client visit</label>
+          <label class="g-check"><input type="radio" name="purpose" value="Conference" /> Conference</label>
+          <label class="g-check"><input type="radio" name="purpose" value="Internal offsite" /> Internal offsite</label>
+          <div class="g-error" id="purpose-error"></div>
+        </div>
+        <div class="wiz-actions">
+          <button class="g-btn" id="back-2">Back</button>
+          <button class="g-btn g-btn-primary" id="next-2">Next</button>
+        </div>
+      </section>
+
+      <!-- Step 3: Policy -->
+      <section class="g-card wiz-panel hidden" id="step-3">
+        <h2>Travel policy</h2>
+        <p class="g-sub">Read the policy to the end to enable the acknowledgement.</p>
+        <div class="policy-scroll" id="policy-scroll" tabindex="0">
+          <h4>1. Booking</h4>
+          <p>All bookings must be made through the corporate travel desk at least seven days before departure. Bookings made outside the desk are reimbursed only with prior written approval from the cost-center owner.</p>
+          <h4>2. Class of travel</h4>
+          <p>Flights under six hours are economy. Flights over six hours may be premium economy with manager approval. Rail is first class where the fare difference is under 20 percent.</p>
+          <h4>3. Accommodation</h4>
+          <p>Hotel rates must not exceed the city cap published on the intranet. Extended-stay rates apply to trips longer than fourteen nights.</p>
+          <h4>4. Expenses</h4>
+          <p>Meals are reimbursed at actuals up to the daily cap with itemised receipts. Alcohol is not reimbursable. Ground transport should prefer public transit or shared rides.</p>
+          <h4>5. Changes and cancellations</h4>
+          <p>Changes after ticketing require the travel desk. No-shows without notice are charged to the traveller's department and reviewed quarterly.</p>
+        </div>
+        <div class="g-field">
+          <label class="g-check">
+            <input type="checkbox" id="accept-policy" disabled />
+            I have read and accept the travel policy
+          </label>
+          <div class="g-hint" id="accept-hint">Scroll the policy to the bottom to enable this.</div>
+        </div>
+        <div class="g-field">
+          <label for="cost-center">Cost center</label>
+          <input id="cost-center" type="text" placeholder="e.g. CC-4210" autocomplete="off" />
+          <div class="g-hint">Format: CC- followed by 4 digits.</div>
+          <div class="g-error" id="cost-center-error"></div>
+        </div>
+        <div class="wiz-actions">
+          <button class="g-btn" id="back-3">Back</button>
+          <button class="g-btn g-btn-primary" id="next-3">Next</button>
+        </div>
+      </section>
+
+      <!-- Step 4: Review -->
+      <section class="g-card wiz-panel hidden" id="step-4">
+        <h2>Review and submit</h2>
+        <p class="g-sub">Check the details, then submit the request.</p>
+        <ul class="review-list" id="review-list"></ul>
+        <div class="wiz-actions">
+          <button class="g-btn" id="back-4">Back</button>
+          <button class="g-btn g-btn-primary" id="submit-request">Submit request</button>
+        </div>
+      </section>
+
+      <!-- Done -->
+      <section class="g-card wiz-panel hidden" id="step-done">
+        <div class="pay-success">
+          <div class="big">✅</div>
+          <h2>Request submitted</h2>
+          <p class="g-sub">Reference</p>
+          <div class="receipt" id="request-ref"></div>
+          <p class="g-sub">Your manager has been notified for approval.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Session expiry modal -->
+  <div class="g-modal-overlay hidden" id="session-overlay">
+    <div class="g-modal" role="dialog" aria-modal="true" aria-labelledby="session-title">
+      <h3 id="session-title">Your session is about to expire</h3>
+      <p>For security you will be signed out in <strong id="session-secs">30</strong> seconds. Any unsaved details will be lost.</p>
+      <div class="g-modal-actions">
+        <button class="g-btn" id="session-signout">Sign out</button>
+        <button class="g-btn g-btn-primary" id="session-stay">Stay signed in</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="wizard.js"></script>
+</body>
+</html>

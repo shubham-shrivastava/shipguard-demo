@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Approvals — ShipGuarde Demo</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="gauntlet.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div class="header-inner">
+        <div class="logo">
+          <span class="logo-icon">⚓</span>
+          <span class="logo-text">ShipGuarde</span>
+        </div>
+        <span class="header-tagline">Approvals inbox</span>
+      </div>
+    </header>
+    <nav class="site-nav" aria-label="Demo pages">
+      <div class="site-nav-inner">
+        <a href="/">Test Runs</a>
+        <a href="/quote">Quote Form</a>
+        <a href="/approvals" class="active">Approvals</a>
+        <a href="/legacy">Vendor Master</a>
+        <a href="/grid">Orders</a>
+        <a href="/wizard">Travel Request</a>
+        <a href="/payment">Checkout</a>
+      </div>
+    </nav>
+
+    <main class="main">
+      <div class="page-title-row">
+        <h1 class="page-title">Approvals</h1>
+        <span id="pending-count" class="result-count"></span>
+      </div>
+
+      <section class="g-card" aria-labelledby="exp-heading">
+        <div class="appr-head-row">
+          <h2 id="exp-heading">Expense reports</h2>
+          <button class="g-btn" id="approve-all-expenses">Approve all</button>
+        </div>
+        <table class="appr-table">
+          <thead>
+            <tr>
+              <th>Report</th><th>Submitted by</th><th>Amount</th><th>Status</th>
+              <th class="appr-th-actions"></th>
+            </tr>
+          </thead>
+          <tbody id="expense-rows"></tbody>
+        </table>
+      </section>
+
+      <section class="g-card" aria-labelledby="inv-heading">
+        <div class="appr-head-row">
+          <h2 id="inv-heading">Vendor invoices</h2>
+          <button class="g-btn" id="approve-all-invoices">Approve all</button>
+        </div>
+        <table class="appr-table">
+          <thead>
+            <tr>
+              <th>Invoice</th><th>Vendor</th><th>Amount</th><th>Status</th>
+              <th class="appr-th-actions"></th>
+            </tr>
+          </thead>
+          <tbody id="invoice-rows"></tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+
+  <!-- Confirm modal -->
+  <div class="g-modal-overlay hidden" id="confirm-overlay">
+    <div class="g-modal" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+      <h3 id="confirm-title"></h3>
+      <p id="confirm-body"></p>
+      <div class="g-modal-actions">
+        <button class="g-btn" id="confirm-cancel">Cancel</button>
+        <button class="g-btn g-btn-primary" id="confirm-go"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Undo toast -->
+  <div class="g-toast hidden" id="toast">
+    <span id="toast-text"></span>
+    <button class="g-btn g-btn-sm" id="toast-undo">Undo</button>
+  </div>
+
+  <script src="approvals.js"></script>
+</body>
+</html>

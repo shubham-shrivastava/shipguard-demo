@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Orders — ShipGuarde Demo</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="gauntlet.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div class="header-inner">
+        <div class="logo">
+          <span class="logo-icon">⚓</span>
+          <span class="logo-text">ShipGuarde</span>
+        </div>
+        <span class="header-tagline">Order management</span>
+      </div>
+    </header>
+    <nav class="site-nav" aria-label="Demo pages">
+      <div class="site-nav-inner">
+        <a href="/">Test Runs</a>
+        <a href="/quote">Quote Form</a>
+        <a href="/approvals">Approvals</a>
+        <a href="/legacy">Vendor Master</a>
+        <a href="/grid" class="active">Orders</a>
+        <a href="/wizard">Travel Request</a>
+        <a href="/payment">Checkout</a>
+      </div>
+    </nav>
+
+    <main class="main">
+      <div class="page-title-row">
+        <h1 class="page-title">Orders</h1>
+        <span id="grid-count" class="result-count"></span>
+      </div>
+
+      <div class="grid-toolbar">
+        <input type="search" id="grid-search" placeholder="Search orders…" autocomplete="off" />
+        <button class="g-btn" id="grid-clear-filters">Clear filters</button>
+        <button class="g-btn" id="grid-export">Export</button>
+      </div>
+
+      <div class="table-wrap">
+        <table class="orders-table" id="orders-table">
+          <thead>
+            <tr>
+              <th><input type="checkbox" id="select-page" aria-label="Select all on page" /></th>
+              <th data-col="id"><button class="th-sort" data-sort="id">Order #</button></th>
+              <th data-col="customer"><button class="th-sort" data-sort="customer">Customer</button></th>
+              <th data-col="region">
+                <button class="th-sort" data-sort="region">Region</button>
+                <button class="th-filter" data-filter="region" aria-label="Filter by region">▾</button>
+              </th>
+              <th data-col="status">
+                <button class="th-sort" data-sort="status">Status</button>
+                <button class="th-filter" data-filter="status" aria-label="Filter by status">▾</button>
+              </th>
+              <th data-col="items"><button class="th-sort" data-sort="items">Items</button></th>
+              <th data-col="total"><button class="th-sort" data-sort="total">Total</button></th>
+              <th data-col="updated"><button class="th-sort" data-sort="updated">Updated</button></th>
+            </tr>
+          </thead>
+          <tbody id="grid-body"></tbody>
+        </table>
+        <div id="grid-empty" class="empty-state hidden">
+          <div class="empty-icon">📦</div>
+          <p class="empty-title">No orders match</p>
+          <p class="empty-sub">Adjust the search or clear the column filters.</p>
+        </div>
+      </div>
+
+      <div class="grid-pager" id="grid-pager"></div>
+    </main>
+  </div>
+
+  <div class="bulk-bar hidden" id="bulk-bar">
+    <span id="bulk-count"></span>
+    <button class="g-btn g-btn-sm g-btn-primary" id="bulk-approve">Approve</button>
+    <button class="g-btn g-btn-sm g-btn-danger" id="bulk-reject">Reject</button>
+    <button class="g-btn g-btn-sm" id="bulk-export">Export</button>
+    <button class="g-btn g-btn-sm" id="bulk-clear">Clear selection</button>
+  </div>
+
+  <div class="g-toast hidden" id="grid-toast"><span id="grid-toast-text"></span></div>
+
+  <script src="grid.js"></script>
+</body>
+</html>
