@@ -1,0 +1,8 @@
+/* Layout for the card-details iframe document only. */
+.frame-body {
+  padding: 14px;
+  background: var(--bg);
+  min-height: 0;
+}
+.frame-row { display: flex; gap: 14px; }
+.frame-row .g-field { flex: 1; }

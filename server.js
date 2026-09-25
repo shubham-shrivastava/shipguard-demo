@@ -1,6 +1,8 @@
 const express = require("express");
 const path = require("path");
 const { createQuoteRouter } = require("./quote-api.js");
+const { createLegacyRouter } = require("./legacy-vendor.js");
+const { createGauntletRouter } = require("./gauntlet-api.js");
 
 const PORT = process.env.PORT || 3000;
 
@@ -28,6 +30,28 @@ function createApp(options = {}) {
   app.use("/api/quote", createQuoteRouter(options.quote));
   app.get("/quote", (_req, res) => {
     res.sendFile(path.join(__dirname, "quote.html"));
+  });
+
+  // Enterprise gauntlet: pages built to stress browser automation in
+  // realistic ways. Every page works correctly for a human.
+  app.use("/api", createGauntletRouter(options.gauntlet));
+  app.use("/legacy", createLegacyRouter());
+  const page = (route, file) =>
+    app.get(route, (_req, res) => res.sendFile(path.join(__dirname, file)));
+  page("/approvals", "approvals.html");
+  page("/grid", "grid.html");
+  page("/wizard", "wizard.html");
+  page("/payment", "payment.html");
+  // The card iframe document: the global CSP forbids all framing
+  // (frame-ancestors 'none'), so this one response allows same-origin only.
+  app.get("/payment/frame", (_req, res) => {
+    res.setHeader(
+      "Content-Security-Policy",
+      "default-src 'self'; script-src 'self'; style-src 'self'; " +
+        "img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; " +
+        "base-uri 'self'; form-action 'self'; frame-ancestors 'self'"
+    );
+    res.sendFile(path.join(__dirname, "payment-frame.html"));
   });
 
   app.get("*", (_req, res) => {

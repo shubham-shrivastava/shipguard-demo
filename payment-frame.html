@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Card details</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/gauntlet.css" />
+  <link rel="stylesheet" href="/payment-frame.css" />
+</head>
+<body class="frame-body">
+  <div class="g-field">
+    <label for="card-number">Card number</label>
+    <input id="card-number" type="text" inputmode="numeric" autocomplete="cc-number" placeholder="1234 5678 9012 3456" maxlength="19" />
+    <div class="g-error" id="card-number-error"></div>
+  </div>
+  <div class="frame-row">
+    <div class="g-field">
+      <label for="card-expiry">Expiry</label>
+      <input id="card-expiry" type="text" inputmode="numeric" autocomplete="cc-exp" placeholder="MM/YY" maxlength="5" />
+      <div class="g-error" id="card-expiry-error"></div>
+    </div>
+    <div class="g-field">
+      <label for="card-cvc">CVC</label>
+      <input id="card-cvc" type="password" inputmode="numeric" autocomplete="cc-csc" placeholder="123" maxlength="4" />
+      <div class="g-error" id="card-cvc-error"></div>
+    </div>
+  </div>
+  <script src="/payment-frame.js"></script>
+</body>
+</html>
