@@ -10,6 +10,7 @@
     });
   }
 
+  // Case-insensitive match on the run name or its URL; an empty query matches every row.
   function matchesSearch(row, search) {
     const q = (search || "").trim().toLowerCase();
     if (!q) return true;
