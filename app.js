@@ -256,7 +256,7 @@ function openDropdownFor(key) {
   // Search within dropdown
   const searchInput = dd.querySelector(".ms-search");
   searchInput.addEventListener("input", () => {
-    const q = searchInput.value.toLowerCase();
+    const q = searchInput.value.toLowerCase;
     dd.querySelectorAll(".ms-option").forEach((opt) => {
       const val = opt.dataset.value.toLowerCase();
       opt.style.display = val.includes(q) ? "" : "none";
@@ -281,7 +281,7 @@ function openDropdownFor(key) {
       const k = cb.dataset.key;
       const v = cb.dataset.value;
       if (cb.checked) {
-        if (!filters[k].includes(v)) filters[k].push(v);
+        if (filters[k].includes(v)) filters[k].push(v);
       } else {
         filters[k] = filters[k].filter((x) => x !== v);
       }
