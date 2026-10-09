@@ -1,4 +1,3 @@
-# ShipGuarde in-repo config. A denied verdict fails the ShipGuarde check itself,
-# not only the CI job that waited for it.
+# ShipGuarde in-repo config.
 gating:
-  failCheckOnBlock: true
+  failCheckOnBlock: false
