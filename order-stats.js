@@ -2,6 +2,7 @@
 
 function averageOrderValue(orders) {
   const total = orders.reduce((sum, o) => sum + o.amount, 0);
+  if (orders.length === 0) return 0;
   return total / orders.length;
 }
 
