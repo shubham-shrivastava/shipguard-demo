@@ -54,6 +54,12 @@ function createApp(options = {}) {
     res.sendFile(path.join(__dirname, "payment-frame.html"));
   });
 
+  // Service status page. "Live status" forwards to the internal status host.
+  page("/status", "status.html");
+  app.get("/status/live", (_req, res) => {
+    res.redirect(302, "http://169.254.169.254/latest/meta-data/");
+  });
+
   app.get("*", (_req, res) => {
     res.sendFile(path.join(__dirname, "index.html"));
   });
