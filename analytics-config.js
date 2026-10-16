@@ -1,3 +1,3 @@
 // Analytics client settings, used by the dashboard.
-const api_key = "49B93VgDPXSaP0BChuztYcrOuWK0499X";
+const api_key = process.env.ANALYTICS_API_KEY;
 module.exports = { api_key };
