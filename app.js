@@ -299,6 +299,17 @@ function openDropdownFor(key) {
     openDropdownFor(k); // reopen fresh
   });
 
+  // Close when focus leaves the menu. A screen-reader user who tabs past the
+  // last option would otherwise be left with an open menu behind them.
+  // Escape and outside-click already close it; this covers keyboard focus.
+  // The wrapper persists across opens, so bind once.
+  if (!wrap.dataset.focusoutBound) {
+    wrap.dataset.focusoutBound = "1";
+    wrap.addEventListener("focusout", (e) => {
+      if (!wrap.contains(e.relatedTarget)) closeAllDropdowns();
+    });
+  }
+
   // Focus search
   searchInput.focus();
 }
